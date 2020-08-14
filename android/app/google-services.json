@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "986176702664",
+    "firebase_url": "https://novaloja-795d6.firebaseio.com",
+    "project_id": "novaloja-795d6",
+    "storage_bucket": "novaloja-795d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986176702664:android:f019119e9803468bb77dfd",
+        "android_client_info": {
+          "package_name": "br.com.bilangieri.loja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986176702664-l519laqbs3c1hv20hcppl2q2e0avomh5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtM4HqUpyhHH-Yc9pUhZlUfUe1OkVDI3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "986176702664-l519laqbs3c1hv20hcppl2q2e0avomh5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
