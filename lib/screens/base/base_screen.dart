@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja/common/custom_drawer/custom_drawer.dart';
 
 class BaseScreen extends StatelessWidget {
   final PageController pageController = PageController();
@@ -7,6 +8,12 @@ class BaseScreen extends StatelessWidget {
     return PageView(
       controller: pageController,
       children: <Widget>[
+        Scaffold(
+          drawer: CustomDrawer(),
+          appBar: AppBar(
+            title: const Text('Home'),
+          ),
+        ),
         Container(
           color: Colors.red,
           child: RaisedButton(
