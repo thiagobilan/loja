@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:loja/models/product_manager.dart';
+import 'package:loja/models/produtos.dart';
 import 'package:loja/models/user_manager.dart';
 import 'package:loja/screens/base/base_screen.dart';
 import 'package:loja/screens/cadastro/cadastro_screen.dart';
+import 'package:loja/screens/login/login_screen.dart';
+import 'package:loja/screens/produto/product_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -11,8 +15,17 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<UserManager>(
-      create: (context) => UserManager(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => UserManager(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProductManager(),
+          lazy: false,
+        ),
+      ],
       child: MaterialApp(
         title: 'Loja Thiago',
         debugShowCheckedModeBanner: false,
@@ -36,11 +49,15 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                 builder: (_) => CadastroScreen(),
               );
+            case '/login':
+              return MaterialPageRoute(
+                builder: (_) => LoginScreen(),
+              );
 
-            // case '/base':
-            //   return MaterialPageRoute(
-            //     builder: (_) => BaseScreen(),
-            //   );
+            case '/produto':
+              return MaterialPageRoute(
+                builder: (_) => ProductScreen(settings.arguments as Produto),
+              );
             default:
               return MaterialPageRoute(
                 builder: (_) => CadastroScreen(),

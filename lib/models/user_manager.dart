@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -8,17 +9,19 @@ class UserManager extends ChangeNotifier {
   UserManager() {
     _loadCurrentUser();
   }
-  FirebaseUser user;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final Firestore firestore = Firestore.instance;
+
+  User user;
   bool _loading = false;
   bool get loading => _loading;
-  final FirebaseAuth auth = FirebaseAuth.instance;
+
   Future<void> signIn({User user, Function onFail, Function onSuccess}) async {
     loading = true;
     try {
       final AuthResult result = await auth.signInWithEmailAndPassword(
           email: user.email, password: user.pass);
-
-      this.user = result.user;
+      await _loadCurrentUser(firebaseUser: result.user);
 
       onSuccess();
     } on PlatformException catch (e) {
@@ -32,11 +35,46 @@ class UserManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _loadCurrentUser() async {
-    final FirebaseUser currentUser = await auth.currentUser();
+  void sair() {
+    auth.signOut();
+    user = null;
+    notifyListeners();
+  }
+
+  bool get isLogged => user != null;
+  Future<void> criarConta(
+      {User usuario, Function onSuccess, Function onFail}) async {
+    loading = true;
+    try {
+      final AuthResult result = await auth.createUserWithEmailAndPassword(
+          email: usuario.email, password: usuario.pass);
+
+      usuario.id = result.user.uid;
+      user = usuario;
+
+      await usuario.saveData();
+      onSuccess();
+    } on PlatformException catch (e) {
+      onFail(getErrorString(e.code));
+    }
+    loading = false;
+    //TODO: TIRAR
+    // debugPrint('ID DO USUARIO!!AKI ${usuario.id.toString()}');
+  }
+
+  Future<void> _loadCurrentUser({FirebaseUser firebaseUser}) async {
+    final FirebaseUser currentUser = firebaseUser ?? await auth.currentUser();
     if (currentUser != null) {
-      user = currentUser;
-      debugPrint(user.uid);
+      final DocumentSnapshot docUsuario = await firestore
+          .collection('usuarios')
+          .document(currentUser.uid)
+          .get();
+      user = User.fromDocument(docUsuario);
+      notifyListeners();
+
+      //TODO: TIRAR
+      // user = currentUser;
+      // debugPrint('Nome é ::::  ${user.nome}');
     }
     notifyListeners();
   }

@@ -99,6 +99,7 @@ class LoginScreen extends StatelessWidget {
                                         ));
                                       },
                                       onSuccess: () {
+                                        Navigator.of(context).pop();
                                         // debugPrint('Sucesso');
                                       });
                                 }

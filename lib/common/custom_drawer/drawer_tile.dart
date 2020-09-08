@@ -16,8 +16,8 @@ class DrawerTile extends StatelessWidget {
     return InkWell(
       onTap: () {
         context.read<PageManager>().setPage(page);
-
-        debugPrint("toquei ${context.read<PageManager>().page}");
+        //TODO: TIRAR
+        // debugPrint("toquei ${context.read<PageManager>().page}");
       },
       child: SizedBox(
         height: 60,
