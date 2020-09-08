@@ -149,21 +149,7 @@ class CadastroScreen extends StatelessWidget {
                   )
                 ],
               ),
-<<<<<<< HEAD
             ),
-=======
-              SizedBox(
-                height: 44,
-                child: RaisedButton(
-                  color: Theme.of(context).primaryColor,
-                  disabledColor: Theme.of(context).primaryColor.withAlpha(100),
-                  textColor: Colors.white,
-                  onPressed: () {},
-                  child: const Text('Criar Conta'),
-                ),
-              )
-            ],
->>>>>>> parent of 405546e... Projeto Criado
           ),
         ),
       ),

@@ -38,4 +38,12 @@ class Produto extends ChangeNotifier {
   }
 
   bool get temEstoque => estoqueTotal > 0;
+
+  TamanhoItem findSize(String nome) {
+    try {
+      return tamanhos.firstWhere((element) => element.nome == nome);
+    } catch (e) {
+      return null;
+    }
+  }
 }
