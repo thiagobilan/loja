@@ -6,12 +6,13 @@ class Produto extends ChangeNotifier {
   Produto.fromDocument(DocumentSnapshot document) {
     id = document['id'] as String;
     nome = document['nome'] as String;
-    descricao = document['descricao'] as String;
     images = List<String>.from(document.data['imgs'] as List<dynamic>);
+    descricao = document['descricao'] as String;
     tamanhos = (document.data['sizes'] as List<dynamic> ?? [])
         .map((s) => TamanhoItem.fromMap(s as Map<String, dynamic>))
         .toList();
   }
+
   String id;
   String nome;
   String descricao;

@@ -91,7 +91,6 @@ class LoginScreen extends StatelessWidget {
                                           email: emailController.text,
                                           pass: passController.text),
                                       onFail: (e) {
-                                        // debugPrint(e.toString());
                                         scaffoldKey.currentState
                                             .showSnackBar(SnackBar(
                                           content: Text('Falha ao Entrar: $e'),
@@ -100,7 +99,6 @@ class LoginScreen extends StatelessWidget {
                                       },
                                       onSuccess: () {
                                         Navigator.of(context).pop();
-                                        // debugPrint('Sucesso');
                                       });
                                 }
                               },

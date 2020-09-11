@@ -58,8 +58,6 @@ class UserManager extends ChangeNotifier {
       onFail(getErrorString(e.code));
     }
     loading = false;
-    //TODO: TIRAR
-    // debugPrint('ID DO USUARIO!!AKI ${usuario.id.toString()}');
   }
 
   Future<void> _loadCurrentUser({FirebaseUser firebaseUser}) async {
@@ -71,10 +69,6 @@ class UserManager extends ChangeNotifier {
           .get();
       user = User.fromDocument(docUsuario);
       notifyListeners();
-
-      //TODO: TIRAR
-      // user = currentUser;
-      // debugPrint('Nome é ::::  ${user.nome}');
     }
     notifyListeners();
   }

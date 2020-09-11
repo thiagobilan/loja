@@ -10,6 +10,8 @@ class User {
   DocumentReference get firestoreRef =>
       Firestore.instance.document('usuarios/$id');
 
+  CollectionReference get cartReference => firestoreRef.collection('chart');
+
   User({
     this.id,
     this.email,

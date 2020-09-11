@@ -128,7 +128,6 @@ class CadastroScreen extends StatelessWidget {
                                         Navigator.of(context).pop();
                                       },
                                       onFail: (e) {
-                                        // debugPrint(e.toString());
                                         scaffoldKey.currentState
                                             .showSnackBar(SnackBar(
                                           content: Text('Falha ao Entrar: $e'),
