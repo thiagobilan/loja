@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja/models/cart_manager.dart';
+import 'package:loja/models/home_manager.dart';
 import 'package:loja/models/product_manager.dart';
 import 'package:loja/models/produtos.dart';
 import 'package:loja/models/user_manager.dart';
@@ -31,6 +32,10 @@ class MyApp extends StatelessWidget {
           update: (_, userManager, cartManager) =>
               cartManager..atualizarUsuario(userManager),
           create: (context) => CartManager(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (context) => HomeManager(),
           lazy: false,
         )
       ],
