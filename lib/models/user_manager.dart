@@ -68,8 +68,16 @@ class UserManager extends ChangeNotifier {
           .document(currentUser.uid)
           .get();
       user = User.fromDocument(docUsuario);
+
+      final docAdmin =
+          await firestore.collection('admins').document(user.id).get();
+      if (docAdmin.exists) {
+        user.admin = true;
+      }
       notifyListeners();
     }
     notifyListeners();
   }
+
+  bool get adminEnabled => user != null && user.admin;
 }

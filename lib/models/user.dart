@@ -6,6 +6,7 @@ class User {
   String pass;
   String nome;
   String validarSenha;
+  bool admin = false;
 
   DocumentReference get firestoreRef =>
       Firestore.instance.document('usuarios/$id');

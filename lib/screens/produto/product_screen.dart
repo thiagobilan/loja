@@ -18,6 +18,23 @@ class ProductScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(produto.nome),
           centerTitle: true,
+          actions: <Widget>[
+            Consumer<UserManager>(
+              builder: (context, userManager, child) {
+                if (userManager.adminEnabled) {
+                  return IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed(
+                            '/edit_product',
+                            arguments: produto);
+                      });
+                } else {
+                  return Container();
+                }
+              },
+            )
+          ],
         ),
         backgroundColor: Colors.white,
         body: ListView(
@@ -62,7 +79,7 @@ class ProductScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'R\$ 19.99',
+                    'R\$ ${produto.menorPreco.toStringAsFixed(2)}',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,

@@ -1,7 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:loja/models/section_item.dart';
 
-class Section {
+class Section extends ChangeNotifier {
+  Section({
+    this.name,
+    this.type,
+    this.items,
+  }) {
+    items = items ?? [];
+  }
   Section.fromDocuiment(DocumentSnapshot document) {
     name = document.data['name'] as String;
     type = document.data['type'] as String;
@@ -17,5 +25,23 @@ class Section {
   @override
   String toString() {
     return 'Section {name: $name, type: $type, items: $items}';
+  }
+
+  Section clone() {
+    return Section(
+      name: name,
+      type: type,
+      items: items.map((e) => e.clone()).toList(),
+    );
+  }
+
+  void addItem(SectionItem item) {
+    items.add(item);
+    notifyListeners();
+  }
+
+  void removeitem(SectionItem item) {
+    items.remove(item);
+    notifyListeners();
   }
 }

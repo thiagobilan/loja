@@ -17,7 +17,7 @@ class BotaoCustomizado extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             child: Icon(
               iconeBotao,
-              color: cor,
+              color: onTap != null ? cor : Colors.grey,
             ),
           ),
         ),
