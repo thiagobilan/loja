@@ -23,21 +23,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  alphabet_list_scroll_view: ^1.0.6
+  brasil_fields: ^0.6.0
+  carousel_pro: ^1.0.0
   cloud_firestore: ^0.13.7
+  cupertino_icons: ^0.1.3
+  dio: ^3.0.10
+  faker: ^1.2.1
   firebase_auth: ^0.16.1
   firebase_storage: ^3.1.6
-  provider: ^4.3.1
-  carousel_pro: ^1.0.0
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.3
   flutter_staggered_grid_view: ^0.3.2
-  transparent_image: ^1.0.0
-  alphabet_list_scroll_view: ^1.0.6
-  faker: ^1.2.1
-  image_picker: ^0.6.7+7
+  geolocator: ^6.1.7
   image_cropper: ^1.3.1
+  image_picker: ^0.6.7+7
+  provider: ^4.3.1
+  transparent_image: ^1.0.0
   uuid: ^2.2.2
 
 dev_dependencies:
@@ -81,4 +81,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-

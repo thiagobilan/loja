@@ -11,6 +11,8 @@ import 'package:loja/screens/carrinho/cart_screen.dart';
 import 'package:loja/screens/edit_products/edit_product_screen.dart';
 import 'package:loja/screens/login/login_screen.dart';
 import 'package:loja/screens/produto/product_screen.dart';
+import 'package:loja/screens/address/address_screen.dart';
+import 'package:loja/screens/select_product/select_product_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<UserManager, CartManager>(
           update: (_, userManager, cartManager) =>
-              cartManager..atualizarUsuario(userManager),
+              cartManager..updateUser(userManager),
           create: (context) => CartManager(),
           lazy: false,
         ),
@@ -82,6 +84,14 @@ class MyApp extends StatelessWidget {
             case '/carrinho':
               return MaterialPageRoute(
                 builder: (_) => CartScreen(),
+              );
+            case '/address':
+              return MaterialPageRoute(
+                builder: (_) => AddressScreen(),
+              );
+            case '/select_product':
+              return MaterialPageRoute(
+                builder: (_) => SelectProductScreeen(),
               );
             case '/edit_product':
               return MaterialPageRoute(

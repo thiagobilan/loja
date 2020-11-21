@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:loja/models/home_manager.dart';
 import 'package:loja/models/product_manager.dart';
+import 'package:loja/models/produtos.dart';
 import 'package:loja/models/section.dart';
 import 'package:loja/models/section_item.dart';
 import 'package:provider/provider.dart';
@@ -29,16 +30,42 @@ class ItemTile extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (_) {
+                  final product = context
+                      .read<ProductManager>()
+                      .findProductById(item.produto);
                   return AlertDialog(
                     title: const Text("Editar item."),
+                    content: product != null
+                        ? ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: Image.network(product.images.first),
+                            title: Text(product.nome),
+                            subtitle: Text("R\$ ${product.menorPreco}"),
+                          )
+                        : null,
                     actions: <Widget>[
                       FlatButton(
-                          onPressed: () {
-                            context.read<Section>().removeitem(item);
+                        onPressed: () {
+                          context.read<Section>().removeitem(item);
+                          Navigator.of(context).pop();
+                        },
+                        textColor: Colors.red,
+                        child: const Text('Excluir'),
+                      ),
+                      FlatButton(
+                          onPressed: () async {
+                            if (product != null) {
+                              item.produto = null;
+                            } else {
+                              final Produto product =
+                                  await Navigator.of(context)
+                                      .pushNamed('/select_product') as Produto;
+                              item.produto = product?.id;
+                            }
                             Navigator.of(context).pop();
                           },
-                          textColor: Colors.red,
-                          child: const Text('Excluir'))
+                          child: Text(
+                              product != null ? 'Desvincular' : 'Vincular'))
                     ],
                   );
                 },

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:loja/common/empty_card.dart';
+import 'package:loja/common/login_card.dart';
 import 'package:loja/common/price_card.dart';
 import 'package:loja/models/cart_manager.dart';
 import 'package:loja/screens/carrinho/componentes/cart_tile.dart';
@@ -13,6 +15,15 @@ class CartScreen extends StatelessWidget {
       ),
       body: Consumer<CartManager>(
         builder: (_, cartManager, __) {
+          if (cartManager.user == null) {
+            return const LoginCard();
+          }
+          if (cartManager.items.isEmpty) {
+            return EmptyCard(
+              icon: Icons.remove_shopping_cart,
+              title: 'Nenhum Pedido no Carrinho',
+            );
+          }
           return ListView(
             children: <Widget>[
               Column(
@@ -22,7 +33,11 @@ class CartScreen extends StatelessWidget {
               ),
               PriceCard(
                 buttonText: 'Continuar para entrega',
-                onPressed: cartManager.isCartValid ? () {} : null,
+                onPressed: cartManager.isCartValid
+                    ? () {
+                        Navigator.of(context).pushNamed('/address');
+                      }
+                    : null,
               ),
             ],
           );

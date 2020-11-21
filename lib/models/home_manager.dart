@@ -5,20 +5,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:loja/models/section.dart';
 
 class HomeManager extends ChangeNotifier {
-  StreamSubscription _subscription;
   HomeManager() {
     _loadSections();
   }
 
-  List<Section> _sections = [];
+  final List<Section> _sections = [];
   List<Section> _editingSections = [];
 
+  bool loading = false;
   bool editing = false;
 
   final Firestore firestore = Firestore.instance;
 
   Future<void> _loadSections() async {
-    _subscription = firestore.collection('home').snapshots().listen(
+    firestore.collection('home').orderBy('pos').snapshots().listen(
       (snapshot) {
         _sections.clear();
         for (final DocumentSnapshot document in snapshot.documents) {
@@ -47,11 +47,11 @@ class HomeManager extends ChangeNotifier {
     }
   }
 
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _subscription.cancel();
+  //   super.dispose();
+  // }
 
   void enterEditing() {
     editing = true;
@@ -59,7 +59,33 @@ class HomeManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void saveEditing() {
+  Future<void> saveEditing() async {
+    //Validação
+    bool valid = true;
+    for (final section in _editingSections) {
+      if (!section.valid()) {
+        valid = false;
+      }
+    }
+    if (!valid) {
+      return;
+    }
+    //Salvamento.
+    loading = true;
+    notifyListeners();
+    int pos = 0;
+    for (final section in _editingSections) {
+      await section.save(pos);
+      pos++;
+    }
+
+    for (final section in List.from(_sections)) {
+      if (!_editingSections.any((element) => element.id == section.id)) {
+        await section.delete();
+      }
+    }
+
+    loading = false;
     editing = false;
     notifyListeners();
   }

@@ -39,11 +39,13 @@ class HomeScreen extends StatelessWidget {
                   actions: <Widget>[
                     IconButton(
                       icon: Icon(Icons.shopping_cart),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/carrinho');
+                      },
                     ),
                     Consumer2<UserManager, HomeManager>(
                       builder: (_, userManager, homeManager, __) {
-                        if (userManager.adminEnabled) {
+                        if (userManager.adminEnabled && !homeManager.loading) {
                           if (homeManager.editing) {
                             return PopupMenuButton(
                               onSelected: (value) {
@@ -79,6 +81,15 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Consumer<HomeManager>(
                   builder: (_, homeManager, __) {
+                    if (homeManager.loading) {
+                      return SliverToBoxAdapter(
+                        child: LinearProgressIndicator(
+                          valueColor:
+                              const AlwaysStoppedAnimation(Colors.white),
+                          backgroundColor: Colors.transparent,
+                        ),
+                      );
+                    }
                     final List<Widget> children =
                         homeManager.sections.map<Widget>((section) {
                       switch (section.type) {

@@ -27,7 +27,7 @@ class AdminUsersScreen extends StatelessWidget {
                 ),
                 subtitle: Text(
                   adminUserManager.users[index].email,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                 ),
@@ -36,7 +36,7 @@ class AdminUsersScreen extends StatelessWidget {
             strList: adminUserManager.names,
             indexedHeight: (index) => 80,
             showPreview: true,
-            highlightTextStyle: TextStyle(
+            highlightTextStyle: const TextStyle(
               color: Colors.white,
               fontSize: 20,
             ),

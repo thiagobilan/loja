@@ -6,10 +6,13 @@ class PriceCard extends StatelessWidget {
   const PriceCard({this.buttonText, this.onPressed});
   final String buttonText;
   final VoidCallback onPressed;
+
   @override
   Widget build(BuildContext context) {
     final cartManager = context.watch<CartManager>();
     final productPrice = cartManager.productsPrice;
+    final deliveryPrice = cartManager.deliveryPrice;
+
     return Card(
       margin: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -36,8 +39,30 @@ class PriceCard extends StatelessWidget {
                 Text(productPrice.toStringAsFixed(2)),
               ],
             ),
+            const SizedBox(height: 8),
+            if (deliveryPrice != null) ...[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Entrega',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    deliveryPrice.toStringAsFixed(2),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 6,
+              ),
+            ],
             const Divider(),
-            const SizedBox(height: 12),
+            const SizedBox(
+              height: 6,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -48,16 +73,13 @@ class PriceCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'R\$19,99',
+                  cartManager.totalPrice.toStringAsFixed(2),
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 16,
                   ),
                 ),
               ],
-            ),
-            const SizedBox(
-              height: 8,
             ),
             RaisedButton(
               disabledColor: Theme.of(context).primaryColor.withAlpha(100),

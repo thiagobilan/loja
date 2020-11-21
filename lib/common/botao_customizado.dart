@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class BotaoCustomizado extends StatelessWidget {
-  const BotaoCustomizado({this.iconeBotao, this.cor, this.onTap});
+  const BotaoCustomizado({this.iconeBotao, this.cor, this.onTap, this.size});
   final IconData iconeBotao;
   final Color cor;
   final VoidCallback onTap;
+  final double size;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -18,6 +19,7 @@ class BotaoCustomizado extends StatelessWidget {
             child: Icon(
               iconeBotao,
               color: onTap != null ? cor : Colors.grey,
+              size: size ?? 24,
             ),
           ),
         ),
